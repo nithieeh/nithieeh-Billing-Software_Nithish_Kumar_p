@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purchase</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 95%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    /* Styling for the table */
+    #itemsTable {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    #itemsTable th, #itemsTable td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    #itemsTable th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 style="text-align: center;">Sell</h2>
+    <form id="retailerForm">
+      <div class="form-group">
+        <label for="companyName">Company Name</label>
+        <input type="text" id="companyName" name="companyName" required>
+      </div>
+      <div>
+        <label for="itemName">Item Name</label>
+        <input type="text" id="itemName" name="itemName" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="itemId">Item Id</label>
+        <input type="number" id="itemId" name="itemId" required>
+      </div>
+      <div class="form-group">
+        <label for="rate">Rate</label>
+        <input type="number" id="rate" name="rate" required>
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" required>
+      </div>
+      <button type="button" id="addItemButton">Add</button>
+      <button type="submit"><a href="{{ url_for('index') }}">Submit</a></button>
+    </form>
+
+    <div>
+      <h4>
+        <p>Cash Balance: ₹</p>
+      </h4>
+    </div>
+
+    <div>
+      <h3>Selled Items:</h3>
+      <table id="itemsTable">
+        <thead>
+          <tr>
+            <th>Company Name</th>
+            <th>Item Name</th>
+            <th>Item ID</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody id="itemsList">
+          <!-- Purchased items will be appended here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('retailerForm');
+    const addItemButton = document.getElementById('addItemButton');
+    const itemsList = document.getElementById('itemsList');
+
+    addItemButton.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const companyName = document.getElementById('companyName').value;
+      const itemName = document.getElementById('itemName').value;
+      const itemId = document.getElementById('itemId').value;
+      const rate = document.getElementById('rate').value;
+      const quantity = document.getElementById('quantity').value;
+
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td>${companyName}</td>
+        <td>${itemName}</td>
+        <td>${itemId}</td>
+        <td>${rate}</td>
+        <td>${quantity}</td>
+      `;
+      itemsList.appendChild(newRow);
+
+      // Clear input fields
+      document.getElementById('companyName').value = '';
+      document.getElementById('itemName').value = '';
+      document.getElementById('itemId').value = '';
+      document.getElementById('rate').value = '';
+      document.getElementById('quantity').value = '';
+    });
+
+    form.addEventListener('submit', function(event) {
+      // You can add further logic here for the final submission if needed
+    });
+  </script>
+</body>
+</html>

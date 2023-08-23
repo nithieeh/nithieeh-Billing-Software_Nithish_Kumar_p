@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Your CSS styles go here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            width: 100%;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            background-color: #eee;
+            padding: 0.5rem;
+            width: 100%;
+        }
+
+        nav li {
+            margin: 0 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        main {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        section {
+            flex: 1;
+            margin-bottom: 3rem;
+            border: 1px solid #ddd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #333;
+            color: white;
+            width: 100%;
+        }
+
+        .cash-balance {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            max-width: 600px;
+            margin-right: 1.5rem; /* Add this line to add space between Cash Balance and Purchase */
+        }
+
+        .cash-balance p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cash-balance input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .cash-balance button {
+            padding: 0.5rem 1rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .section-spacing {
+            margin-right: 1.5rem; /* Add this line to add space between Purchase and Sales */
+        }
+    </style>
+</head>
+<!-- ... Your HTML and CSS code ... -->
+
+<body>
+    <header>
+        <h1>Welcome to Namma Kadai</h1>
+        <p style="font-family: Arial, Helvetica, sans-serif;">All your needs is here</p>
+    </header>
+    <main>
+        <section class="cash-balance">
+            <h2>Cash Balance</h2>
+            <p id="cashAmount">Cash Balance: ₹0</p> <!-- Change $ to ₹ for Indian Rupees -->
+            <input type="number" id="initialCash" placeholder="Enter initial cash amount">
+            <button id="setCashButton">Set</button>
+        </section>
+        <section id="purchase" class="section-spacing">
+            <h2><a href="{{ url_for('purchase') }}">Purchase</a></h2>
+            <p>Purchase products here!</p>
+        </section>
+        <section id="sales">
+            <h2><a href="{{ url_for('sales') }}">Sales</a></h2>
+            <p>Sell the products here!</p>
+        </section>
+        
+    </main>
+    <script>
+        console.log("Script loaded");
+
+        const setCashButton = document.getElementById('setCashButton');
+        const initialCashInput = document.getElementById('initialCash');
+        const cashAmountDisplay = document.getElementById('cashAmount');
+
+        let cashBalance = 0;
+
+        setCashButton.addEventListener('click', () => {
+            const initialCash = parseFloat(initialCashInput.value);
+            if (!isNaN(initialCash)) {
+                cashBalance = initialCash;
+                cashAmountDisplay.textContent = `Cash Balance: ₹${cashBalance.toFixed(2)}`; // Change $ to ₹
+                initialCashInput.value = '';
+            }
+            
+        });
+    </script>
+</body>
+</html>
